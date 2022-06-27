@@ -60,5 +60,4 @@ public class BreweryClient {
         this.apihost = apihost;
     }
 
-
 }

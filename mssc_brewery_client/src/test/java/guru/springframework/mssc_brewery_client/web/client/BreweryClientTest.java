@@ -48,18 +48,18 @@ class BreweryClientTest {
     }
 
     @Test
-    void deleteBeer(){
+    void deleteBeer() {
         client.deleteBeer(UUID.randomUUID());
     }
 
     @Test
-    void getCustomerById(){
+    void getCustomerById() {
         CustomerDto customerDto = client.getCustomerById(UUID.randomUUID());
         assertNotNull(customerDto);
     }
 
     @Test
-    void saveNewCustomer(){
+    void saveNewCustomer() {
         CustomerDto customerDto = CustomerDto.builder()
                 .customerName("Pasha")
                 .build();
@@ -69,7 +69,7 @@ class BreweryClientTest {
     }
 
     @Test
-    void updateCustomer(){
+    void updateCustomer() {
         CustomerDto customerDto = CustomerDto.builder()
                 .customerName("Pasha")
                 .build();
@@ -78,7 +78,7 @@ class BreweryClientTest {
     }
 
     @Test
-    void deleteCustomer(){
+    void deleteCustomer() {
         client.deleteCustomer(UUID.randomUUID());
     }
 
