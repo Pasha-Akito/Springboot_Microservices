@@ -2,29 +2,23 @@ package guru.springframework.msscbrewery.web.controller.v2;
 
 import guru.springframework.msscbrewery.services.v2.BeerServiceV2;
 import guru.springframework.msscbrewery.web.model.v2.BeerDtoV2;
+import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/api/v2/beer")
 @RestController
+@RequiredArgsConstructor
 public class BeerControllerV2 {
 
     //Where we map our API Endpoint
     private final BeerServiceV2 beerServiceV2;
-
-    //Defining Beer Service
-    //Abstracts Business logic in Service Interface and then in ServiceImpl
-    public BeerControllerV2(BeerServiceV2 beerServiceV2) {
-        this.beerServiceV2 = beerServiceV2;
-    }
 
     //Mapping GET Request by beerId
     @GetMapping({"/{beerId}"})
@@ -36,9 +30,9 @@ public class BeerControllerV2 {
     @PostMapping
     public ResponseEntity<BeerDtoV2> handlePost(@Valid @RequestBody BeerDtoV2 beerDto) {
         //Using Service to save new beer
-        BeerDtoV2 savedDto = beerServiceV2.saveNewBeer(beerDto);
+        val savedDto = beerServiceV2.saveNewBeer(beerDto);
         //Setting Http headers to make a response body to the location of the newly created beer object
-        HttpHeaders headers = new HttpHeaders();
+        val headers = new HttpHeaders();
         headers.add("Location", "/api/v2/beer/" + savedDto.getId().toString());
 
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
