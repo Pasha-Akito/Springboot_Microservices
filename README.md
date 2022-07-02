@@ -1,2 +1,1 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/Pasha-Akito/Springboot_Microservices/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Pasha-Akito/Springboot_Microservices/tree/main)
 # Springboot_Microservices
