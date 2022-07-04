@@ -24,6 +24,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -58,6 +60,17 @@ class BeerControllerTest {
                         ),
                         requestParameters(
                                 parameterWithName("iscold").description("Is Beer Cold Query param")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").description("Id of Beer"),
+                                fieldWithPath("beerName").description("Name of Beer"),
+                                fieldWithPath("beerStyle").description("Style of Beer"),
+                                fieldWithPath("price").description("Price of Beer"),
+                                fieldWithPath("quantityOnHand").description("Min On Hand of Beer"),
+                                fieldWithPath("upc").description("UPC of Beer"),
+                                fieldWithPath("createdDate").description("Date Created of Beer"),
+                                fieldWithPath("lastModifiedDate").description("Date Last Modified of Beer"),
+                                fieldWithPath("version").description("Version of Beer")
                         )));
     }
 
