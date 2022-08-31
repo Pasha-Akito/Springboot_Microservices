@@ -1,7 +1,6 @@
 package guru.springframework.msscbeerservice.web.controller;
 
-import guru.springframework.msscbeerservice.repositories.BeerRepository;
-import guru.springframework.msscbeerservice.web.mappers.BeerMapper;
+import guru.springframework.msscbeerservice.services.BeerService;
 import guru.springframework.msscbeerservice.web.model.BeerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,34 +15,24 @@ import java.util.UUID;
 @RestController
 public class BeerController {
 
-    private final BeerMapper beerMapper;
-    private final BeerRepository beerRepository;
+    private final BeerService beerService;
 
     @GetMapping("/{beerId}")
     public ResponseEntity<BeerDto> getBeerById(@PathVariable("beerId") UUID beerId){
-        // get beer from database
-        return new ResponseEntity<>(beerMapper.beerToBeerDto(beerRepository.findById(beerId).get()), HttpStatus.OK);
+        //Get Beer by ID
+        return new ResponseEntity<>(beerService.getById(beerId), HttpStatus.OK);
     }
 
     @PostMapping
     public  ResponseEntity<BeerDto> saveNewBeer(@Validated @RequestBody BeerDto beerDto){
-        // save beer to database
-        beerRepository.save(beerMapper.beerDtoToBeer(beerDto));
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        //Save New Beer
+        return new ResponseEntity<>(beerService.saveNewBeer(beerDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{beerId}")
     public  ResponseEntity<BeerDto> updateBeerById(@PathVariable("beerId") UUID beerId, @Validated @RequestBody BeerDto beerDto){
-        beerRepository.findById(beerId).ifPresent(beer -> {
-            beer.setBeerName(beerDto.getBeerName());
-            beer.setBeerStyle(beerDto.getBeerStyle().name());
-            beer.setPrice(beerDto.getPrice());
-            beer.setUpc(beerDto.getUpc());
-
-            beerRepository.save(beer);
-        });
-
-        return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        //Update Beer by ID
+        return new ResponseEntity<>(beerService.updateBeer(beerId, beerDto), HttpStatus.NO_CONTENT);
     }
 
 
